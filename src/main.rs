@@ -366,6 +366,7 @@ impl Chip {
             if input == 1 {
                 changed = true;
                 self.registers[x] = index as u8;
+                break;
             }
         }
         if changed {
