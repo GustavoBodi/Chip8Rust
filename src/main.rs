@@ -361,38 +361,14 @@ impl Chip {
         self.registers[x] = self.delay_timer;
     }
     fn op_fx0a(&mut self, x: usize) {
-
-        if self.input[0] == 1 {
-            self.registers[x] = 0;
-        } else if self.input[1] == 1 {
-            self.registers[x] = 1;
-        } else if self.input[2] == 1 {
-            self.registers[x] = 2;
-        } else if self.input[3] == 1 {
-            self.registers[x] = 3;
-        } else if self.input[4] == 1 {
-            self.registers[x] = 4;
-        } else if self.input[5] == 1 {
-            self.registers[x] = 5;
-        } else if self.input[6] == 1 {
-            self.registers[x] = 7;
-        } else if self.input[7] == 1 {
-            self.registers[x] = 6;
-        } else if self.input[8] == 1 {
-            self.registers[x] = 8;
-        } else if self.input[9] == 1 {
-            self.registers[x] = 9;
-        } else if self.input[10] == 1 {
-            self.registers[x] = 10;
-        } else if self.input[11] == 1 {
-            self.registers[x] = 11;
-        } else if self.input[12] == 1 {
-            self.registers[x] = 12;
-        } else if self.input[13] == 1 {
-            self.registers[x] = 13;
-        } else if self.input[15] == 1 {
-            self.registers[x] = 15;
-        } else {
+        let mut changed = false;
+        for (index, input) in self.input.into_iter().enumerate() {
+            if input == 1 {
+                changed = true;
+                self.registers[x] = index as u8;
+            }
+        }
+        if changed {
             self.pc -= 2;
         }
     }
